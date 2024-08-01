@@ -33,7 +33,7 @@ h1, h2, h3, h4, h5, h6, p{
     margin: 0;
 }
 
-.ToDo{
+.todo{
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -72,7 +72,7 @@ input[type="text"]::placeholder{
     color: black;
 }
 
-.todoContainer{
+.todo-container{
     display: flex;
     gap: 1rem;
 }
@@ -128,18 +128,18 @@ input[text="checkbox"]::before::after{
     border: 0.06rem solid grey;
 }
 
-.counter_container{
+.counter-container{
     height: 2rem;
     display: flex;
     justify-content: space-between;
     color: grey;
 }
 
-.counter_container p{
+.counter-container p{
     align-self: center;
 }
 
-.counter_container button{
+.counter-container button{
     border: none;
     background-color: transparent;
     color: grey;
