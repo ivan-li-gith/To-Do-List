@@ -1,10 +1,9 @@
-
 //setting the var todo to whatever is in storage (if it exists) or making it into an empty array
 let todo = JSON.parse(localStorage.getItem("todo")) || [];
 const todoInput = document.getElementById("todoInput");
 const todoList = document.getElementById("todoList");
 const todoCount = document.getElementById("todoCount");
-const addButton = document.querySelector("button");
+const addButton = document.querySelector(".btn");
 const deleteButton = document.getElementById("deleteButton");
 
 //initializing the document
@@ -21,7 +20,6 @@ document.addEventListener("DOMContentLoaded", function(){
             addTask();
         }
     })
-
     deleteButton.addEventListener("click", deleteAllTask);
     displayTasks();
 });
@@ -33,20 +31,14 @@ function addTask(){
     //adding newTask to the array
     if(newTask !== ""){
         todo.push({text: newTask, disabled: false});
+        savetoLocalStorage();
+        todoInput.value = "";
+        displayTasks();
     }
-
-    savetoLocalStorage();
-    todoInput.value = "";
-    displayTasks();
-}
-
-function deleteAllTask(){
-
 }
 
 function displayTasks(){
     todoList.innerHTML = "";
-
     todo.forEach((item, index) => {
         const p = document.createElement("p");
 
@@ -66,14 +58,49 @@ function displayTasks(){
         
         `;
 
-        p.querySelector(".todo-checkbox").addEventListener("change", () => {toggleTask(index)});
+        p.querySelector(".todo-checkbox").addEventListener("change", () => toggleTask(index));
         todoList.appendChild(p);
         
     });
 
+    todoCount.textContent = todo.length;
 
+}
+
+//this just allows you to strike through the tasks you clicked on 
+function toggleTask(index){
+    todo[index].disabled = !todo[index].disabled;
+    savetoLocalStorage();
+    displayTasks();
+}
+
+function deleteAllTask(){
+    todo = [];
+    savetoLocalStorage();
+    displayTasks();
 }
 
 function savetoLocalStorage(){
     localStorage.setItem("todo", JSON.stringify(todo));
+}
+
+function editTask(index){
+    const todoItem = document.getElementById(`todo-${index}`);
+    const existingText = todo[index].text;
+    const inputElement = document.createElement("input");
+
+    inputElement.value = existingText;
+    todoItem.replaceWith(inputElement);
+    inputElement.focus();
+
+    //blur = when focus ends
+    inputElement.addEventListener("blur", function (){
+        const updatedText = inputElement.value.trim();
+        if(updatedText){
+            todo[index].text = updatedText;
+            savetoLocalStorage();
+        }
+        displayTasks();
+
+    });
 }

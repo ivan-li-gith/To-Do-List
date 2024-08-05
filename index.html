@@ -17,19 +17,19 @@
             <!--divs are a container to group and organize a stuff-->
             <div class="input">
                 <input type="text" class="input-field" id="todoInput" placeholder="Add a task">
-                <button class="button">Add</button>
+                <button class="btn">Add</button>
             </div>
 
             <!--unordered list-->
-            <ul>
+            <ul class="scroll">
                 <li id="todoList"></li>
             </ul>
 
             <div>
                 <hr class="counter">
-                <div class="counter_container">
-                    <p><span>0</span> Total Items</p>
-                    <button>Delete All</button>
+                <div class="counter-container">
+                    <p><span id="todoCount">0</span> Total Items</p>
+                    <button id="deleteButton">Delete All</button>
                 </div>
             </div>
 
